@@ -1,6 +1,6 @@
 // top import the dotenv
 require("dotenv").config({
-  path: `./config.${process.env.NODE_ENV}.env`,
+  path: `./config.${process.env.NODE_ENV || "development"}.env`,
   quiet: true,
 });
 
