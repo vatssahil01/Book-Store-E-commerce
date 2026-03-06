@@ -1,5 +1,13 @@
 const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 const AppError = require("../utils/AppError");
+
+// Ensure directory exists dynamically to prevent Render ENOENT crash
+const absoluteUploadDir = path.join(__dirname, "../public/uploads");
+if (!fs.existsSync(absoluteUploadDir)) {
+  fs.mkdirSync(absoluteUploadDir, { recursive: true });
+}
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

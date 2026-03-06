@@ -1,7 +1,6 @@
-// top import the dotenv
+const env = (process.env.NODE_ENV || 'development').trim();
 require("dotenv").config({
-  path: `./config.${process.env.NODE_ENV || "development"}.env`,
-  quiet: true,
+  path: `./config.${env}.env`,
 });
 
 const app = require("./app");
@@ -10,7 +9,7 @@ const connectDB = require("./config/db");
 console.log(process.env.NODE_ENV, process.env.PORT);
 
 connectDB();
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 app.listen(port, (err) => {
   if (err) throw err;
   console.log(`server is running http://localhost:${port}`);

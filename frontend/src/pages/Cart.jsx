@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { FaTrash, FaMinus, FaPlus, FaCreditCard } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import api from '../api/axios';
 
 const Cart = () => {
     const { cart, removeFromCart, updateQuantity, clearCart, cartTotal } = useCart();
@@ -11,20 +12,33 @@ const Cart = () => {
     const navigate = useNavigate();
     const [isCheckingOut, setIsCheckingOut] = useState(false);
 
-    const handleCheckout = () => {
+    const handleCheckout = async () => {
         if (!user) {
             toast.error("Please login to checkout");
             navigate('/login');
             return;
         }
         setIsCheckingOut(true);
-        // Simulate checkout process
-        setTimeout(() => {
+        try {
+            const payload = {
+                items: cart.map(item => ({
+                    bookId: item._id,
+                    quantity: item.quantity
+                }))
+            };
+            const response = await api.post('/orders/checkout-session', payload);
+            if (response.data && response.data.session && response.data.session.url) {
+                // Redirect to Stripe checkout page
+                window.location.href = response.data.session.url;
+            } else {
+                toast.error("Failed to initialize checkout.");
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error(error.response?.data?.message || "Checkout failed");
+        } finally {
             setIsCheckingOut(false);
-            clearCart();
-            toast.success("Order placed successfully! Thank you for your purchase.");
-            navigate('/');
-        }, 2000);
+        }
     };
 
     if (cart.length === 0) {
@@ -41,7 +55,7 @@ const Cart = () => {
         <div className="container page-content">
             <h1 style={{ fontSize: '2rem', marginBottom: '2rem' }}>Shopping <span className="gradient-text">Cart</span></h1>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '2rem', alignItems: 'start' }}>
+            <div className="grid-cart-layout">
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     {cart.map(item => (
                         <div key={item._id} className="card" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '1rem' }}>
