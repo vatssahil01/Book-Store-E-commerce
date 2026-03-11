@@ -194,4 +194,4 @@ Now, open your browser and visit the Frontend URL (e.g., `http://localhost:5173`
 
 This **Book Store E-commerce** project demonstrates a solid foundation for a scalable web application. It handles complex flows like authentication, file uploads, and secure data transactions, making it an excellent reference for MERN stack development.
 
-Feel free to explore the code, report issues, or contribute if you have a good approach!
+Feel free to explore the code, report issues, or contribute!
