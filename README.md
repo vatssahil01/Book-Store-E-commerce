@@ -154,7 +154,7 @@ Before installation, ensure you have:
 ### **1. Clone Repository**
 
 ```bash
-git clone https://github.com/Naveen-Kumar48/Book-store-.git
+git clone https://github.com/vatssahil01/Book-Store-E-commerce.git
 cd Book-store-
 ```
 
@@ -388,7 +388,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Now-brightgreen?style=for-the-badge&logo=vercel)](https://book-store-e-commerce-five.vercel.app/)
 
-[Report Bug](https://github.com/Naveen-Kumar48/Book-store-/issues) • [Request Feature](https://github.com/Naveen-Kumar48/Book-store-/issues) • [View Demo](https://book-store-e-commerce-five.vercel.app/)
+[Report Bug](https://github.com/vatssahil01/Book-Store-E-commerce/issues) • [Request Feature](https://github.com/vatssahil01/Book-Store-E-commerce/issues) • [View Demo](https://book-store-e-commerce-five.vercel.app/)
 
 </div>
 
