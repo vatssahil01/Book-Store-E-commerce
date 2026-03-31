@@ -42,6 +42,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   const profilePic = req.file ? req.file.path : undefined;
 
   let user = await User.findOne({ email });
+  let isNewUser = false;
 
   if (user) {
     if (user.isVerified) {
@@ -59,6 +60,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     await user.save();
   } else {
     // Create new user
+    isNewUser = true;
     user = await User.create({
       name,
       email,
@@ -73,9 +75,16 @@ exports.signup = catchAsync(async (req, res, next) => {
 
   try {
     await sendEmail(email, otp);
-  } catch (error) {
-    console.error("Email sending failed:", error);
-    return next(new AppError("Failed to dispatch OTP email. Please ensure your EMAIL_USER and EMAIL_PASS environment variables are accurately configured in your hosting provider.", 500));
+  } catch (err) {
+    console.error("sendEmail error:", err.message, err.code);
+    if (isNewUser) {
+      await User.findByIdAndDelete(user._id);
+    } else {
+      user.otp = undefined;
+      user.otpExpires = undefined;
+      await user.save({ validateBeforeSave: false });
+    }
+    return next(new AppError("There was an error sending the email. Try again later!", 500));
   }
 
   res.status(201).json({
@@ -146,9 +155,17 @@ exports.resendOtp = catchAsync(async (req, res, next) => {
   user.otp = otp;
   user.otpExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
 
-  await user.save();
+  await user.save({ validateBeforeSave: false });
 
-  await sendEmail(email, otp);
+  try {
+    await sendEmail(email, otp);
+  } catch (err) {
+    console.error("resendOtp sendEmail error:", err.message, err.code);
+    user.otp = undefined;
+    user.otpExpires = undefined;
+    await user.save({ validateBeforeSave: false });
+    return next(new AppError("There was an error sending the email. Try again later!", 500));
+  }
 
   res.status(200).json({
     status: "success",
@@ -159,28 +176,36 @@ exports.resendOtp = catchAsync(async (req, res, next) => {
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
+  console.log(`[LOGIN] Attempt for email: ${email}`);
+
   if (!email || !password) {
+    console.log(`[LOGIN] Missing credentials`);
     return next(new AppError("please provide the email and password", 400));
   }
+  
   const user = await User.findOne({ email }).select("+password");
 
-  if (!user || !(await user.checkPassword(password, user.password))) {
+  if (!user) {
+    console.log(`[LOGIN] User not found: ${email}`);
+    return next(new AppError("Invalid  email or password", 401));
+  }
+
+  console.log(`[LOGIN] User found: ${email}, isVerified: ${user.isVerified}`);
+
+  const passwordMatch = await user.checkPassword(password, user.password);
+  console.log(`[LOGIN] Password match: ${passwordMatch}`);
+
+  if (!passwordMatch) {
+    console.log(`[LOGIN] Password mismatch for: ${email}`);
     return next(new AppError("Invalid  email or password", 401));
   }
 
   if (!user.isVerified) {
+    console.log(`[LOGIN] User not verified: ${email}`);
     return next(new AppError("Please verify OTP before login", 401));
   }
 
-  // const token = signToken({ id: user._id });
-
-  // res.status(200).json({
-  //   status: "success",
-  //   data: {
-  //     user,
-  //     token,
-  //   },
-  // });
+  console.log(`[LOGIN] Success for: ${email}`);
   createSendToken(user, 200, res);
 });
 

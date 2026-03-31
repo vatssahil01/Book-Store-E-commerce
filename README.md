@@ -1,197 +1,395 @@
-# Book Store E-commerce Application
+# 📚 Book Store E-Commerce Platform
 
-Welcome to the **Book Store E-commerce** project! This is a full-stack web application designed to provide a seamless platform for users to browse, purchase, and manage books. It features a robust backend API and a modern, responsive frontend interface.
+<div align="center">
 
-## 📖 Project Overview
+![Book Store Banner](https://img.shields.io/badge/Book_Store-E--Commerce-blue?style=for-the-badge)
 
-This project is a comprehensive E-commerce solution specifically tailored for selling books. It serves as a practical demonstration of a modern MERN (MongoDB, Express, React, Node.js) stack application.
+**A Modern Full-Stack E-Commerce Solution for Book Retailers**
 
-The primary goal is to create a secure and user-friendly environment where:
-*   **Users** can sign up, verify their emails via OTP, login, browse books, add them to a cart, and manage their profiles.
-*   **Admins** can manage users and potentially books (depending on role configuration).
-*   **Authors** can potentially contribute content.
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Now-brightgreen?style=for-the-badge&logo=vercel)](https://book-store-e-commerce-five.vercel.app/)
 
-This application is built with scalability and security in mind, utilizing industry-standard practices like JWT authentication, password hashing, and secure API structure.
+[![React](https://img.shields.io/badge/React-19.2.0-61dafb?style=flat-square&logo=react)]()
+[![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=flat-square&logo=node.js)]()
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat-square&logo=mongodb)]()
+[![Stripe](https://img.shields.io/badge/Payments-Stripe-635bff?style=flat-square&logo=stripe)]()
+
+[Features](#-features) • [Tech Stack](#-tech-stack) • [Installation](#-installation) • [API Documentation](#-api-endpoints) • [Security](#-security-features)
+
+</div>
+
+---
+
+## 📖 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-project-architecture)
+- [Payment Integration](#-payment-integration)
+- [Installation & Setup](#-installation--setup)
+- [Environment Configuration](#-environment-variables)
+- [API Endpoints](#-api-endpoints)
+- [Security Features](#-security-features)
+- [Testing](#-testing)
+- [Deployment](#-deployment-guide)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
+## 🌟 Overview
+
+**Book Store E-Commerce** is a production-ready, full-stack web application designed to provide a comprehensive platform for online book retail. Built with the MERN stack (MongoDB, Express.js, React, Node.js), this solution demonstrates enterprise-level architecture with secure payment processing, real-time order management, and scalable design patterns.
+
+### 🌐 Live Link
+
+🚀 **Visit Live Site:** [https://book-store-e-commerce-five.vercel.app/](https://book-store-e-commerce-five.vercel.app/)
+
+### Key Capabilities
+
+✅ **Complete E-Commerce Workflow** - Browse → Cart → Checkout → Payment → Order Tracking  
+✅ **Secure Payment Processing** - Stripe integration with PCI compliance  
+✅ **Email Verification System** - OTP-based user verification  
+✅ **Role-Based Access Control** - User, Author, and Admin roles  
+✅ **Real-Time Order Management** - Automated status updates and tracking  
+✅ **Invoice Generation** - Automated email invoices post-purchase  
+✅ **Inventory Management** - Automatic stock deduction after purchase  
 
 ---
 
 ## ✨ Features
 
-### 👤 User Features
-*   **Secure Authentication**:
-    *   Sign Up with Email Verification (OTP sent via Email).
-    *   Secure Login with JWT (JSON Web Tokens).
-    *   Forgot Password / Resend OTP functionality.
-    *   Logout.
-*   **Book Browsing**: View a list of available books and detailed book information.
-*   **Shopping Cart**: Add books to a shopping cart for purchase.
-*   **User Profile**: View and manage personal profile details.
+### 🛒 **Customer Experience**
 
-### 🛡️ Admin & Technical Features
-*   **Role-Based Access Control (RBAC)**: Distinct roles for Users, Authors, and Admins.
-*   **User Management**: Admins can view/delete users and update user details.
-*   **Security Mechanisms**:
-    *   Password Encryption using `bcrypt`.
-    *   Rate limiting and security headers (implemented/planned).
-    *   Protected Routes ensuring only authorized access to specific endpoints.
-*   **Image Uploads**: dedicated middleware for handling profile picture uploads.
+#### **Authentication & Account Management**
+- 🔐 **Secure Registration** with email OTP verification
+- 🔑 **JWT-based Authentication** with secure token management
+- 🔁 **Password Recovery** with reset token via email
+- 👤 **Profile Management** with avatar upload capability
+- 📧 **Email Notifications** for order confirmations and invoices
+
+#### **Shopping Experience**
+- 📖 **Advanced Book Discovery**
+  - Genre-based categorization (Fantasy, Sci-Fi, Mystery, Romance, etc.)
+  - Search functionality with title and author filtering
+  - Detailed book information with cover images
+- 🛍️ **Smart Shopping Cart**
+  - Real-time cart management with quantity controls
+  - Persistent cart storage across sessions
+  - Dynamic price calculation with totals
+- 💳 **Secure Checkout** with Stripe payment gateway
+- 📦 **Order Tracking** with status progression (Pending → Placed → Delivered)
+
+### 🛡️ **Admin & Technical Features**
+
+#### **User Management**
+- 👥 **User Administration** - View, update, and delete user accounts
+- 🎭 **Role-Based Permissions** - Granular access control system
+- 📊 **User Activity Monitoring** - Track orders and purchase history
+
+#### **Product & Inventory**
+- 📚 **Book Catalog Management** - CRUD operations for book inventory
+- 🏷️ **Stock Management** - Automatic inventory deduction on purchase
+- 🖼️ **Image Upload System** - Secure file upload with Multer middleware
+
+#### **Order Processing**
+- 📋 **Order Dashboard** - Comprehensive order tracking system
+- ⚡ **Automated Workflows** - Status updates with scheduled tasks
+- 📧 **Invoice Automation** - Email invoice delivery post-payment
+- 💰 **Payment Verification** - Server-side Stripe session validation
 
 ---
 
 ## 🛠️ Tech Stack
 
-This project utilizes the **MERN** stack, chosen for its efficiency in building full-stack JavaScript applications.
+### **Frontend Architecture**
 
-### **Frontend (Client-Side)**
-*   **React.js**: A powerful library for building dynamic user interfaces.
-*   **Vite**: Next-generation frontend tooling for fast builds and development.
-*   **React Router DOM**: Handles navigation and routing within the single-page application.
-*   **Axios**: For making HTTP requests to the backend API.
-*   **React Hot Toast**: For beautiful, non-intrusive notifications (flash messages).
-*   **React Icons**: Provides a suite of standard icons.
-*   **Vanilla CSS**: Custom styling for full design control.
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **React** | 19.2.0 | UI component library |
+| **Vite** | 7.2.4 | Build tool & dev server |
+| **React Router DOM** | 7.12.0 | Client-side routing |
+| **Axios** | 1.13.2 | HTTP client for API calls |
+| **React Hot Toast** | 2.6.0 | Toast notification system |
+| **React Icons** | 5.5.0 | Icon library |
 
-### **Backend (Server-Side)**
-*   **Node.js**: JavaScript runtime environment.
-*   **Express.js**: Fast and minimalist web framework for Node.js.
-*   **MongoDB & Mongoose**: NoSQL database and Object Data Modeling (ODM) library for strict data modeling.
-*   **JWT (JSON Web Token)**: For secure, stateless authentication.
-*   **Bcrypt**: For hashing and salting passwords.
-*   **Nodemailer**: Module for sending emails (used for OTPs).
-*   **Multer**: Middleware for handling `multipart/form-data` (file uploads).
+**Styling:** Vanilla CSS with modern flexbox/grid layouts, CSS variables for theming
 
----
+### **Backend Infrastructure**
 
-## 🏗️ Project Architecture
-
-The project is divided into two main directories: `Frontend` and `Backend`.
-
-```plaintext
-root/
-├── Backend/                 # Server-side logic
-│   ├── config/              # Configuration files (DB, Env vars)
-│   ├── controllers/         # Logic for handling requests (Auth, Books, Users)
-│   ├── middleware/          # Interceptors (Auth checks, Error handling, Uploads)
-│   ├── models/              # Database schemas (User, Book)
-│   ├── routers/             # API Route definitions
-│   ├── utils/               # Helper functions (Email, AppError, OTP Gen)
-│   ├── app.js               # Express application setup
-│   └── server.js            # Server entry point
-│
-├── Frontend/                # Client-side UI
-│   ├── src/
-│   │   ├── components/      # Reusable UI components (Navbar, Cards)
-│   │   ├── context/         # Global state management (Auth, Cart)
-│   │   ├── pages/           # Main application pages (Home, Login, Signup)
-│   │   └── App.jsx          # Main App component and Routing
-│   └── package.json         # Frontend dependencies
-│
-└── .gitignore               # Files to ignore in version control
-```
-
----
-
-## 🔄 Data Flow Explanation
-
-1.  **User Interaction**: A user interacts with the Frontend (e.g., clicks "Sign Up").
-2.  **API Request**: The Frontend (using Axios) sends an HTTP Request (POST) to the Backend API endpoint (e.g., `/api/v1/users/signup`).
-3.  **Routing & Middleware**:
-    *   The request hits `app.js` and is routed to `userRoute.js`.
-    *   Middleware checks if data is valid or if the user is authorized (if needed).
-4.  **Controller Logic**: The logic in `authController.js` executes.
-    *   It may check the database (MongoDB) via the `User` Model.
-    *   Example: Checks if the email already exists.
-5.  **Database Operation**: Mongoose handles queries to the MongoDB database.
-6.  **Response**:
-    *   Success: The controller sends back a JSON response (e.g., status 200, JWT token, user data).
-    *   Error: The global error handler sends a standardized error message.
-7.  **UI Update**: The Frontend receives the response and updates the state (e.g., redirects to OTP page or shows an error toast).
-
----
-
-## 🔐 Authentication & Authorization Flow
-
-The security of this application relies on **JWT** and **Email Verification**.
-
-1.  **Sign Up**: User enters details -> Backend generates a random OTP (utilizing `crypto` for security) -> Saves hashed password and OTP to DB -> Sends OTP via Email.
-2.  **Verify OTP**: User enters OTP -> Backend verifies it against the DB -> Marks user as verified -> Logins user (issues JWT).
-3.  **Login**: User enters credentials -> Backend verifies password (bcrypt) -> Issues **JWT Token**.
-4.  **Protected Requests**:
-    *   The Frontend includes the JWT in the `Authorization` header (`Bearer <token>`).
-    *   **Protect Middleware**: Verifies the token. If valid, attaches the user to the request object (`req.user`).
-    *   **RestrictTo Middleware**: Checks if `req.user.role` has permission (e.g., 'admin').
+| Technology | Purpose |
+|------------|---------|
+| **Node.js** | JavaScript runtime |
+| **Express.js** | Web application framework |
+| **MongoDB** | NoSQL database |
+| **Mongoose** | MongoDB ODM |
+| **JWT** | Authentication tokens |
+| **Bcrypt** | Password hashing |
+| **Stripe** | Payment processing |
+| **Nodemailer** | Email service |
+| **Multer** | File upload middleware |
+| **Dotenv** | Environment variable management |
+| **Cross-env** | Cross-platform env variables |
+| **Morgan** | HTTP request logger |
 
 ---
 
 
+#### **Key Features**
 
+✅ **PCI Compliance** - Payments processed on Stripe's secure servers  
+✅ **Server-Side Validation** - Payment status verified before order confirmation  
+✅ **Automatic Stock Deduction** - Inventory reduced upon successful payment  
+✅ **Email Invoicing** - Automated invoice delivery with order details  
+✅ **Order Status Automation** - Scheduled status progression system  
+✅ **Test Mode Support** - Full testing capability with Stripe test cards  
 
-    
+Before installation, ensure you have:
 
-## 🚀 Installation & Setup
+- ✅ **Node.js** v18+ installed ([Download](https://nodejs.org/))
+- ✅ **MongoDB** running locally or MongoDB Atlas URI
+- ✅ **Git** for version control
+- ✅ **Stripe Account** for payment processing ([Get Test Keys](https://dashboard.stripe.com/test/apikeys))
 
-Follow these steps to get the project running locally.
+### **1. Clone Repository**
 
-### Prerequisites
-*   Node.js installed.
-*   MongoDB installed and running locally (or use MongoDB Atlas URI).
-*   Git installed.
-
-### 1. Clone the Repository
 ```bash
 git clone https://github.com/Naveen-Kumar48/Book-store-.git
 cd Book-store-
 ```
 
-### 2. Backend Setup
+### **2. Backend Setup**
+
 ```bash
+# Navigate to backend directory
 cd Backend
-npm install                # Install backend dependencies
-# Create your config.development.env file as described above!
+
+# Install dependencies
+npm install
+
+# Create environment configuration
+# Copy config.development.env.example to config.development.env
+# Edit with your credentials (see Environment Variables section)
 ```
 
-### 3. Frontend Setup
+### **3. Frontend Setup**
+
 ```bash
+# Navigate to frontend directory (from project root)
 cd ../Frontend
-npm install                # Install frontend dependencies
+
+# Install dependencies
+npm install
 ```
 
 ---
 
-## ▶️ Running the Project
+## ▶️ Running the Application
 
-You need to run the Frontend and Backend servers simultaneously (in two separate terminal windows).
+### **Development Mode**
 
-### Start Backend
+Run both servers simultaneously in separate terminals:
+
+**Terminal 1 - Backend Server:**
 ```bash
 cd Backend
 npm start
-# Server should run on http://localhost:5000
 ```
+✅ Server runs on: `http://localhost:5000`
 
-### Start Frontend
+**Terminal 2 - Frontend Dev Server:**
 ```bash
 cd Frontend
 npm run dev
-# Vite server usually runs on http://localhost:5173
+```
+✅ Application runs on: `http://localhost:5173`
+
+### **Production Mode**
+
+```bash
+# Backend production build
+cd Backend
+npm run start:prod
+
+# Frontend production build
+cd Frontend
+npm run build
+npm run preview
 ```
 
-Now, open your browser and visit the Frontend URL (e.g., `http://localhost:5173`).
+---
+
+🔐 **Multi-Layer Security Architecture:**
+
+1. **Password Protection**
+   - Bcrypt hashing with salt rounds
+   - Passwords never stored in plain text
+   - Minimum strength requirements
+
+2. **JWT Token Security**
+   - Signed tokens with secret key
+   - Expiration time enforcement
+   - Token stored in secure HTTP-only cookies (planned)
+
+3. **Email Verification**
+   - Cryptographically secure OTP generation
+   - Time-limited verification codes
+   - One-time use enforcement
+
+4. **Rate Limiting** (Planned)
+   - Prevent brute force attacks
+   - Limit API requests per IP
+
+5. **Input Validation**
+   - Request body sanitization
+   - Type checking with Mongoose schemas
+   - SQL injection prevention
+
+### **Data Protection**
+
+🛡️ **Privacy Measures:**
+
+- Email masking utilities for display
+- Sensitive data encryption at rest
+- CORS policy configuration
+- Helmet.js security headers (planned)
+
+### **Payment Security**
+
+💳 **Stripe Compliance:**
+
+- PCI DSS compliant payment processing
+- Server-side payment verification
+- Secure webhook signatures (planned)
+- No sensitive card data stored locally
 
 ---
 
-## 🔮 Future Improvements
-
-*   **Payment Gateway Integration**: Add Stripe or Razorpay for real payments.
-*   **Search & Filtering**: Advanced filtering for books (Genre, Price, Rating).
-*   **Reviews & Ratings**: Allow users to review books.
-*   **Admin Dashboard**: A visual dashboard for admins to manage inventory and sales.
-*   **Deployment**: Deploy Frontend to Vercel/Netlify and Backend to Render/AWS.
 
 ---
 
-## 🔚 Conclusion
+## 📦 Deployment Guide
 
-This **Book Store E-commerce** project demonstrates a solid foundation for a scalable web application. It handles complex flows like authentication, file uploads, and secure data transactions, making it an excellent reference for MERN stack development.
+### **Frontend Deployment (Vercel)**
 
-Feel free to explore the code, report issues, or contribute!
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy frontend
+cd Frontend
+vercel
+
+# Follow prompts to complete deployment
+```
+
+### **Backend Deployment (Render/Railway)**
+
+1. **Create New Web Service** on Render/Railway
+2. **Connect GitHub Repository**
+3. **Set Build Command:** `npm install`
+4. **Set Start Command:** `npm start`
+5. **Add Environment Variables** from production config
+6. **Deploy**
+
+
+
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. **Fork** the repository
+2. **Create feature branch:**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Commit changes:**
+   ```bash
+   git commit -m 'Add amazing feature'
+   ```
+4. **Push to branch:**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+5. **Open Pull Request**
+
+### **Contribution Guidelines**
+
+- Follow existing code style
+- Write meaningful commit messages
+- Test your changes thoroughly
+- Update documentation as needed
+- Be respectful in discussions
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see LICENSE file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- **Stripe** for secure payment processing
+- **MongoDB** for database solutions
+- **React Team** for the amazing UI library
+- **All Contributors** who helped shape this project
+
+---
+
+## 📞 Support & Contact
+
+### **Getting Help**
+
+- 📖 **Documentation:** This README and `QUICK_START.md`
+- 🐛 **Bug Reports:** Open an issue on GitHub
+- 💡 **Feature Requests:** Submit via GitHub Issues
+- 📧 **Email:** Use project contact (if applicable)
+
+
+---
+
+## 🎯 Future Roadmap
+
+### **Phase 1: Enhanced Features** (Q2 2026)
+- [ ] Advanced search with filters (price, rating, availability)
+- [ ] Book review and rating system
+- [ ] Wishlist functionality
+- [ ] Book recommendation engine
+
+### **Phase 2: Admin Dashboard** (Q3 2026)
+- [ ] Sales analytics dashboard
+- [ ] Inventory management UI
+- [ ] User activity reports
+- [ ] Revenue tracking
+
+### **Phase 3: Mobile Experience** (Q4 2026)
+- [ ] Responsive mobile app (React Native)
+- [ ] Push notifications
+- [ ] Offline reading mode
+- [ ] QR code scanning for books
+
+### **Phase 4: Advanced Features** (2027)
+- [ ] AI-powered recommendations
+- [ ] Social sharing integration
+- [ ] Gift card system
+- [ ] Subscription boxes
+- [ ] Multi-language support
+
+---
+
+<div align="center">
+
+**Made with ❤️ by the Book Store Team**
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Now-brightgreen?style=for-the-badge&logo=vercel)](https://book-store-e-commerce-five.vercel.app/)
+
+[Report Bug](https://github.com/Naveen-Kumar48/Book-store-/issues) • [Request Feature](https://github.com/Naveen-Kumar48/Book-store-/issues) • [View Demo](https://book-store-e-commerce-five.vercel.app/)
+
+</div>
+
+

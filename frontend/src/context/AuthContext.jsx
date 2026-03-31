@@ -46,9 +46,7 @@ export const AuthProvider = ({ children }) => {
     const signup = async (formData) => {
         try {
             // signup expects FormData because of file upload
-            const response = await api.post('/users/signup', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
+            const response = await api.post('/users/signup', formData   );
             toast.success(response.data.message || 'Signup successful. Please verify OTP.');
             return true;
         } catch (error) {
@@ -59,7 +57,7 @@ export const AuthProvider = ({ children }) => {
 
     const verifyOtp = async (email, otp) => {
         try {
-            const response = await api.post('/users/verify-otp', { email, otp: Number(otp) });
+            const response = await api.post('/users/verify-otp', { email, otp: String(otp) });
             const { token, data } = response.data;
             localStorage.setItem('token', token);
             setUser(data.user);
