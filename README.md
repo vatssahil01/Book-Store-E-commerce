@@ -396,3 +396,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 
 'config.production.env'
 'config.development.env'
+
+<!-- add in frontend -->
+
+'.env
